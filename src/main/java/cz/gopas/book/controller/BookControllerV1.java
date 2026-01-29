@@ -5,6 +5,7 @@ import cz.gopas.book.bean.BookDTO;
 import cz.gopas.book.persistence.BookStorage;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @RestController
 @RequestMapping("/v1")
 public class BookControllerV1 implements BookController {
@@ -38,13 +40,13 @@ public class BookControllerV1 implements BookController {
 
     @PostConstruct
     public void init() {
-        System.out.println("Initializing bean !");
+        log.trace("Initializing bean !");
 //        storage.createBook(Book.builder().id(1L).title("The Wonderful Book").author("The Guru").build());
     }
 
     @PreDestroy
     public void cleanup() {
-        System.out.println("Cleaning up bean !");
+        log.trace("Cleaning up bean !");
     }
 
     @Override

@@ -7,3 +7,8 @@ server:
 
 custom:
   book-service-header-name: X-DEV-BookID
+
+logging:
+  level:
+    cz.gopas.book.controller.BookControllerV1: trace
+    root: info
