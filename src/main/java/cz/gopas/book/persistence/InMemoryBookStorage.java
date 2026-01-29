@@ -2,13 +2,11 @@ package cz.gopas.book.persistence;
 
 import cz.gopas.book.bean.Book;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @ConditionalOnProperty(name = "custom.storage.type", havingValue = "memory")

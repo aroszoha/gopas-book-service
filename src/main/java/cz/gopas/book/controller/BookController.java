@@ -1,8 +1,6 @@
 package cz.gopas.book.controller;
 
-import cz.gopas.book.bean.Book;
 import cz.gopas.book.bean.BookDTO;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
