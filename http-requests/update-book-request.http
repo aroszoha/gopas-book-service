@@ -1,0 +1,7 @@
+PUT http://localhost:8090/v1/books/4
+Content-Type: application/json
+
+{
+  "title": "Java Definitive Guide5",
+  "author": "The Java Guru5"
+}

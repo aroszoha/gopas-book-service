@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: book-service-dev
+
+server:
+  port: 8090
+
+custom:
+  book-service-header-name: X-DEV-BookID
