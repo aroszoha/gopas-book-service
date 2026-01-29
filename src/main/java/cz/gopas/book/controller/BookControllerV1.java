@@ -6,19 +6,16 @@ import cz.gopas.book.persistence.BookStorage;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/v1")
@@ -29,6 +26,9 @@ public class BookControllerV1 implements BookController {
 
     @Value("${custom.book-service-header-name}")
     private String headerName;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
 //    @Autowired
 //    public BookControllerV1(BookStorage storage, @Value("${custom.book-service-header-name}") String headerName) {
@@ -49,15 +49,16 @@ public class BookControllerV1 implements BookController {
 
     @Override
     public List<BookDTO> getBooks(String title) {
-        List<Book> result = new ArrayList<>();
+        List<Book> result;
         if (title == null || title.isEmpty()) {
             result = storage.getAll();
+//            result = jdbcTemplate.query("select * from book", new BeanPropertyRowMapper<>(Book.class));
         } else {
             result = storage.getAllContainingTitle(title);
         }
         return result.stream()
                     .map(item -> BookDTO.builder().author(item.getAuthor()).title(item.getTitle()).build())
-                    .collect(Collectors.toUnmodifiableList());
+                    .toList();
     }
 
     @Override
